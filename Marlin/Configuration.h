@@ -714,7 +714,7 @@
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
 #define Z_CLEARANCE_DEPLOY_PROBE    0 // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
+#define Z_CLEARANCE_BETWEEN_PROBES  15 // Z Clearance between probe points
 
 // For M851 give a range for adjusting the Z probe offset
 #define Z_PROBE_OFFSET_RANGE_MIN -20
@@ -887,7 +887,7 @@
   #define BACK_PROBE_BED_POSITION 170
 
   // The Z probe minimum outer margin (to validate G29 parameters).
-  #define MIN_PROBE_EDGE 10
+  #define MIN_PROBE_EDGE 0
 
   // Probe along the Y axis, advancing X after each column
   //#define PROBE_Y_FIRST
@@ -973,7 +973,7 @@
  * Commands to execute at the end of G29 probing.
  * Useful to retract or move the Z probe out of the way.
  */
-#define Z_PROBE_END_SCRIPT "G1 Z10 F4000\nG1 X0 Y0\n"
+#define Z_PROBE_END_SCRIPT "G1 X0 Y0"
 
 
 // @section homing
@@ -986,7 +986,6 @@
 //#define MANUAL_X_HOME_POS 0
 //#define MANUAL_Y_HOME_POS 0
 //#define MANUAL_Z_HOME_POS 0
-//TODO: Check if this can replace the X and Y offset values in start G-Code to be machine specific.
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
 //

@@ -349,7 +349,7 @@
                            || isnan(ubl.z_values[0][0]))
 #endif
 
-#if ENABLED(NEOPIXEL_LED) 
+#if ENABLED(NEOPIXEL_LED)
   #if NEOPIXEL_TYPE == NEO_RGB || NEOPIXEL_TYPE == NEO_RBG || NEOPIXEL_TYPE == NEO_GRB || NEOPIXEL_TYPE == NEO_GBR || NEOPIXEL_TYPE == NEO_BRG || NEOPIXEL_TYPE == NEO_BGR
     #define NEO_WHITE 255, 255, 255
   #else
@@ -2320,7 +2320,8 @@ static void clean_up_after_endstop_or_probe_move() {
     #if ENABLED(PROBE_DOUBLE_TOUCH)
 
       // Do a first probe at the fast speed
-      if (do_probe_move(-10, Z_PROBE_SPEED_FAST)) return NAN;
+      if (do_probe_move(-15, Z_PROBE_SPEED_FAST)) return NAN;
+      // ME3D: Lowered Overshoot from -10 to -15 to meet Z_MIN
 
       #if ENABLED(DEBUG_LEVELING_FEATURE)
         float first_probe_z = current_position[Z_AXIS];
@@ -2346,7 +2347,8 @@ static void clean_up_after_endstop_or_probe_move() {
     #endif
 
     // move down slowly to find bed
-    if (do_probe_move(-10 + (short_move ? 0 : -(Z_MAX_LENGTH)), Z_PROBE_SPEED_SLOW)) return NAN;
+    if (do_probe_move(-15 + (short_move ? 0 : -(Z_MAX_LENGTH)), Z_PROBE_SPEED_SLOW)) return NAN;
+    // ME3D: Lowered minimum overshoot to -15 so it at least meets Z_MIN
 
     #if ENABLED(DEBUG_LEVELING_FEATURE)
       if (DEBUGGING(LEVELING)) DEBUG_POS("<<< run_z_probe", current_position);
@@ -13686,4 +13688,3 @@ void loop() {
   endstops.report_state();
   idle();
 }
-
