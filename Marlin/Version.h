@@ -35,20 +35,20 @@
   /**
    * Marlin release version identifier
    */
-  #define SHORT_BUILD_VERSION "1.1.6 ME2_LV-G9"
+  #define SHORT_BUILD_VERSION "1.1.7 ME2_LV-G9"
 
   /**
    * Verbose version identifier which should contain a reference to the location
    * from where the binary was downloaded or the source code was compiled.
    */
-  #define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " 171116 (Me3D)"
+  #define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " 180108 (Me3D)"
 
   /**
    * The STRING_DISTRIBUTION_DATE represents when the binary file was built,
    * here we define this default string as the date where the latest release
    * version was tagged.
    */
-  #define STRING_DISTRIBUTION_DATE "2017-11-16 12:00"
+  #define STRING_DISTRIBUTION_DATE "2017-12-15 12:00"
 
   /**
    * Required minimum Configuration.h and Configuration_adv.h file versions.
@@ -57,8 +57,8 @@
    * but not limited to: ADD, DELETE RENAME OR REPURPOSE any directive/option on
    * the configuration files.
    */
-  #define REQUIRED_CONFIGURATION_H_VERSION 010101
-  #define REQUIRED_CONFIGURATION_ADV_H_VERSION 010101
+  #define REQUIRED_CONFIGURATION_H_VERSION 010107
+  #define REQUIRED_CONFIGURATION_ADV_H_VERSION 010107
 
   /**
    * The protocol for communication to the host. Protocol indicates communication
