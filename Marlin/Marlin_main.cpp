@@ -3011,6 +3011,7 @@ static void homeaxis(const AxisEnum axis) {
       (axis == A##_AXIS && ((A##_MIN_PIN > -1 && A##_HOME_DIR < 0) || (A##_MAX_PIN > -1 && A##_HOME_DIR > 0)))
     if (!CAN_HOME(X) && !CAN_HOME(Y) && !CAN_HOME(Z)) return;
   #endif
+  SERIAL_ECHOLNPGM("SCARA CHECK DONE."); // *** DELETEME
 
   #if ENABLED(DEBUG_LEVELING_FEATURE)
     if (DEBUGGING(LEVELING)) {
@@ -3020,21 +3021,29 @@ static void homeaxis(const AxisEnum axis) {
     }
   #endif
 
+  SERIAL_ECHOLNPGM("DEBUG CHECK DONE."); // *** DELETEME
+
   const int axis_home_dir =
     #if ENABLED(DUAL_X_CARRIAGE)
       (axis == X_AXIS) ? x_home_dir(active_extruder) :
     #endif
     home_dir(axis);
 
+  SERIAL_ECHOLNPGM("AXIS DIR CHECK DONE."); // *** DELETEME
+
   // Homing Z towards the bed? Deploy the Z probe or endstop.
   #if HOMING_Z_WITH_PROBE
     if (axis == Z_AXIS && DEPLOY_PROBE()) return;
   #endif
 
+  SERIAL_ECHOLNPGM("Z_PROBE CHECK DONE."); // *** DELETEME
+
   // Set a flag for Z motor locking
   #if ENABLED(Z_DUAL_ENDSTOPS)
     if (axis == Z_AXIS) stepper.set_homing_flag(true);
   #endif
+
+  SERIAL_ECHOLNPGM("Z-MOTOR LOCK FLAGGED."); // *** DELETEME
 
   // Disable stealthChop if used. Enable diag1 pin on driver.
   #if ENABLED(SENSORLESS_HOMING)
@@ -3045,12 +3054,14 @@ static void homeaxis(const AxisEnum axis) {
       if (axis == Y_AXIS) tmc2130_sensorless_homing(stepperY);
     #endif
   #endif
-
+  SERIAL_ECHOLNPGM("READY TO MOVE");
   // Fast move towards endstop until triggered
   #if ENABLED(DEBUG_LEVELING_FEATURE)
     if (DEBUGGING(LEVELING)) SERIAL_ECHOLNPGM("Home 1 Fast:");
   #endif
   do_homing_move(axis, 1.5 * max_length(axis) * axis_home_dir);
+
+  SERIAL_ECHOLNPGM("FAST MOVE TO HOME."); // *** DELETEME
 
   // When homing Z with probe respect probe clearance
   const float bump = axis_home_dir * (
@@ -3059,6 +3070,8 @@ static void homeaxis(const AxisEnum axis) {
     #endif
     home_bump_mm(axis)
   );
+
+  SERIAL_ECHOLNPGM("Z-CLEARANCE CHECK DONE."); // *** DELETEME
 
   // If a second homing move is configured...
   if (bump) {
@@ -3123,7 +3136,7 @@ static void homeaxis(const AxisEnum axis) {
     sync_plan_position();
 
     destination[axis] = current_position[axis];
-
+    SERIAL_ECHOLNPGM("HOMED."); // *** DELETEME
     #if ENABLED(DEBUG_LEVELING_FEATURE)
       if (DEBUGGING(LEVELING)) DEBUG_POS("> AFTER set_axis_is_at_home", current_position);
     #endif
@@ -13313,10 +13326,32 @@ void idle(
  * After this the machine will need to be reset.
  */
 void kill(const char* lcd_msg) {
+  set_destination_to_current();
+  SERIAL_ECHOLNPGM("Destination set");
+  setup_for_endstop_or_probe_move();
+  SERIAL_ECHOLNPGM("Setup for endstop/probe move");
+  endstops.enable(true);
+  SERIAL_ECHOLNPGM("enstops enabled.");
+  SERIAL_ECHOLNPGM("About to try homing (X).");
+  HOMEAXIS(X);
+  SERIAL_ECHOLNPGM("About to try homing (Y).");
+  HOMEAXIS(Y);
+  SERIAL_ECHOLNPGM("About to try homing (Z).");
+  HOMEAXIS(Z);
+
   SERIAL_ERROR_START();
   SERIAL_ERRORLNPGM(MSG_ERR_KILLED);
 
+  stepper.synchronize(); // TODO: Is this necessary?
+  // ME3D: Perform desperation move to home positions in X-Y-Z order.
+  // quickstop_stepper();
+  // destination[X_AXIS] = 0;
+  // destination[Y_AXIS] = 0;
+  // destination[Z_AXIS] = 0;
+  // do_blocking_move_to_xy(0, 0);
+
   thermalManager.disable_all_heaters();
+
   disable_all_steppers();
 
   #if ENABLED(ULTRA_LCD)
