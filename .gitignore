@@ -149,3 +149,5 @@ cmake-build-*
 .gcc-flags.json
 .pioenvs
 .piolibdeps
+.pioenvs
+.piolibdeps
