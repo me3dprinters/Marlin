@@ -2248,18 +2248,9 @@ static void clean_up_after_endstop_or_probe_move() {
       }
     #endif
 
-<<<<<<< HEAD
     #if MULTIPLE_PROBING > 2
       float probes_total = 0;
       for (uint8_t p = MULTIPLE_PROBING + 1; --p;) {
-=======
-    // move down slowly to find bed
-    if (do_probe_move(-15 + (short_move ? 0 : -(Z_MAX_LENGTH)), Z_PROBE_SPEED_SLOW)) return NAN;
-    // ME3D: Lowered minimum overshoot to -15 so it at least meets Z_MIN
-
-    #if ENABLED(DEBUG_LEVELING_FEATURE)
-      if (DEBUGGING(LEVELING)) DEBUG_POS("<<< run_z_probe", current_position);
->>>>>>> 1.1.x-Me2
     #endif
 
         // move down slowly to find bed
