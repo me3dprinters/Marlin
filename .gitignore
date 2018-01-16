@@ -153,3 +153,5 @@ cmake-build-*
 .piolibdeps
 .pioenvs
 .piolibdeps
+.pioenvs
+.piolibdeps
