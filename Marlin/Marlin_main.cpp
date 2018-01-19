@@ -2254,7 +2254,8 @@ static void clean_up_after_endstop_or_probe_move() {
     #endif
 
         // move down slowly to find bed
-        if (do_probe_move(-10, Z_PROBE_SPEED_SLOW)) return NAN;
+        if (do_probe_move(-15, Z_PROBE_SPEED_SLOW)) return NAN;
+        // ME3D: Lowered Overshoot from -10 to -15 to meet Z_MIN
 
     #if MULTIPLE_PROBING > 2
         probes_total += current_position[Z_AXIS];
