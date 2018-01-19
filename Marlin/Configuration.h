@@ -125,7 +125,7 @@
 
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
-#define CUSTOM_MACHINE_NAME "Me2_LV 171116"
+#define CUSTOM_MACHINE_NAME "Me2_HV 171116"
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -340,8 +340,7 @@
 
 // Comment the following line to disable PID and enable bang-bang.
 #define PIDTEMP
-// #define BANG_MAX 255 // for HV limits current to nozzle while in bang-bang mode; 255=full current
-#define BANG_MAX 100 // for LV limits current to nozzle while in bang-bang mode; 255=full current
+#define BANG_MAX 255 // for HV limits current to nozzle while in bang-bang mode; 255=full current
 #define PID_MAX BANG_MAX // limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
 #define PID_K1 0.95      // Smoothing factor within the PID
 #if ENABLED(PIDTEMP)
@@ -356,21 +355,11 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
-  // Ultimaker
-  // #define  DEFAULT_Kp 22.2
-  // #define  DEFAULT_Ki 1.08
-  // #define  DEFAULT_Kd 114
 
-  // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
   // Me3D HV
-  // #define  DEFAULT_Kp 19.09
-  // #define  DEFAULT_Ki 1.16
-  // #define  DEFAULT_Kd 78.82
-
-  // Me3D LV
-  #define  DEFAULT_Kp 6.73
-  #define  DEFAULT_Ki 0.35
-  #define  DEFAULT_Kd 32.41
+  #define  DEFAULT_Kp 19.09
+  #define  DEFAULT_Ki 1.16
+  #define  DEFAULT_Kd 78.82
 
 
 #endif // PIDTEMP
