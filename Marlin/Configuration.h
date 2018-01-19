@@ -812,8 +812,6 @@
   //#define MIN_SOFTWARE_ENDSTOP_Z
 #endif
 
-// ***TODO: Me3D Check compatibility with probe head moving below 0 as of 1.1.6
-
 // Max software endstops curtail movement above maximum coordinate bounds
 #define MAX_SOFTWARE_ENDSTOPS
 #if ENABLED(MAX_SOFTWARE_ENDSTOPS)
@@ -1015,7 +1013,7 @@
  * Commands to execute at the end of G29 probing.
  * Useful to retract or move the Z probe out of the way.
  */
-#define Z_PROBE_END_SCRIPT "G1 X0 Y0"
+#define Z_PROBE_END_SCRIPT "G1 X0 Y0 F4000"
 
 
 // @section homing
