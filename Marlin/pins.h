@@ -91,6 +91,8 @@
 // RAMPS Derivatives - ATmega1280, ATmega2560
 //
 
+#elif MB(Me3D)
+ #include "pins_Me3D.h"         // ATmega1280, ATmega2560
 #elif MB(3DRAG)
   #include "pins_3DRAG.h"             // ATmega1280, ATmega2560
 #elif MB(K8200)
